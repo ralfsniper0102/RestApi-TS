@@ -15,10 +15,15 @@ const sign = (payload: { id: number; email: string }) => {
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.header("Authorization");
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
-    const decoded = jwt.verify(token, secret);
+    if (!token) return res.status(401).json();
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, secret);
+    } catch (err) {
+      return res.status(401).json();
+    }
     res.locals.user = decoded;
-    next();
   } catch (err) {
     next(err);
   }
