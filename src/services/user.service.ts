@@ -1,8 +1,8 @@
 import { ModelStatic } from "sequelize";
 import User from "../database/models/User";
-import { resp, respM, respNoMessage } from "../utils/resp";
+import { resp, respM, respNoMessage, respWithNameField } from "../utils/resp";
 import md5 from "md5";
-import { sign } from "../jwt/jwt";
+import { sign, verifyToken } from "../jwt/jwt";
 import IUser from "../interfaces/IUser";
 import schema from "./validations/schema";
 
@@ -33,7 +33,7 @@ class UserService {
 
     const { id, email } = user;
     const token = sign({ id, email });
-    return resp(200, token);
+    return respWithNameField(200, token, "token");
   }
 
   async create(user: IUser) {
@@ -63,6 +63,23 @@ class UserService {
     }
 
     return respM(201, undefined);
+  }
+
+  async getById(id: string) {
+    let user;
+
+    try {
+      user = await this.model.findByPk(id);
+      user = {
+        id: user!.id,
+        email: user!.email,
+      };
+    } catch (error) {
+      return resp(500, "Error searching user");
+    }
+    if (!user) return respM(404, "User not found");
+
+    return resp(200, user);
   }
 }
 
