@@ -21,6 +21,17 @@ class ClientController {
       next(error);
     }
   }
+
+  async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { status, message } = await this.service.getById(
+        parseInt(req.params.id)
+      );
+      res.status(status).json(message);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default ClientController;
