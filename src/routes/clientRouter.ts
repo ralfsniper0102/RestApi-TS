@@ -7,7 +7,7 @@ const clientRouter = Router();
 
 /**
  * @swagger
- *   /client:
+ *   api/Client/GetAllClients:
  *      get:
  *          summary: Retrieve all clients
  *          tags: [Clients]
@@ -21,12 +21,12 @@ const clientRouter = Router();
  *                              items:
  *                                  $ref: '#/components/schemas/GetClients'
  */
-clientRouter.get("/client", control.getAll.bind(control));
+clientRouter.get("api/Client/GetAllClients", control.getAll.bind(control));
 
 
 /**
  * @swagger
- * /createClient:
+ * api/Client/CreateClient:
  *   post:
  *     summary: Create a new client
  *     tags: [Clients]
@@ -44,7 +44,7 @@ clientRouter.get("/client", control.getAll.bind(control));
  *       500:
  *         description: Internal server error
  */
-clientRouter.post("/createClient", control.create.bind(control));
+clientRouter.post("api/Client/CreateClient", control.create.bind(control));
 
 /**
  * @swagger

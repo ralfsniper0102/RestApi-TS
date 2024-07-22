@@ -7,7 +7,7 @@ const userRouter = Router();
 
 /**
  * @swagger
- * /user:
+ * api/User/GetAllUser:
  *   get:
  *     summary: Retrieve all users
  *     tags: [Users]
@@ -21,11 +21,11 @@ const userRouter = Router();
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
-userRouter.get("/user", control.getAll.bind(control));
+userRouter.get("api/User/GetAllUsers", control.getAll.bind(control));
 
 /**
  * @swagger
- * /login:
+ * api/User/Login:
  *   post:
  *     summary: User login
  *     tags: [Users]
@@ -41,11 +41,11 @@ userRouter.get("/user", control.getAll.bind(control));
  *       401:
  *         description: Unauthorized
  */
-userRouter.post("/login", control.login.bind(control));
+userRouter.post("api/User/Login", control.login.bind(control));
 
 /**
  * @swagger
- * /create:
+ * api/User/CreateUser:
  *   post:
  *     summary: Create a new user
  *     tags: [Users]
@@ -61,7 +61,7 @@ userRouter.post("/login", control.login.bind(control));
  *       400:
  *         description: Bad request
  */
-userRouter.post("/create", control.create.bind(control));
+userRouter.post("api/User/CreateUser", control.create.bind(control));
 
 
 /**
