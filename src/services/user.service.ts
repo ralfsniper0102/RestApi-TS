@@ -15,6 +15,9 @@ class UserService {
   }
 
   async login(body: { email: string; password: string }) {
+    const { error } = schema.user.validate(body);
+    if (error) return resp(400, error.message);
+
     const hashPassword = md5(body.password);
 
     let user;
@@ -23,10 +26,10 @@ class UserService {
         where: { email: body.email, password: hashPassword },
       });
     } catch (error) {
-      return respM(500, "Error searching user");
+      return resp(500, "Error searching user");
     }
 
-    if (!user) return respM(401, "Unauthorized");
+    if (!user) return resp(401, "Unauthorized");
 
     const { id, email } = user;
     const token = sign({ id, email });
@@ -35,7 +38,7 @@ class UserService {
 
   async create(user: IUser) {
     const { error } = schema.user.validate(user);
-    if(error) return respM(400, error.message);
+    if (error) return respM(400, error.message);
 
     let userExists;
     try {
@@ -43,7 +46,7 @@ class UserService {
         where: { email: user.email },
       });
     } catch (error) {
-      return respM(500, "Error searching user");
+      return resp(500, "Error searching user");
     }
 
     if (userExists) return respM(409, "User already exists");
