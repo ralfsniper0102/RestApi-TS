@@ -1,5 +1,6 @@
 import { Router } from "express";
 import ClientController from "../controller/client.controller";
+import { verifyToken } from "../jwt/jwt";
 
 const control = new ClientController();
 
@@ -7,7 +8,7 @@ const clientRouter = Router();
 
 /**
  * @swagger
- *   api/Client/GetAllClients:
+ *   /api/Client/GetAllClients:
  *      get:
  *          summary: Retrieve all clients
  *          tags: [Clients]
@@ -21,12 +22,11 @@ const clientRouter = Router();
  *                              items:
  *                                  $ref: '#/components/schemas/GetClients'
  */
-clientRouter.get("api/Client/GetAllClients", control.getAll.bind(control));
-
+clientRouter.get("/api/Client/GetAllClients", verifyToken, control.getAll.bind(control));
 
 /**
  * @swagger
- * api/Client/CreateClient:
+ * /api/Client/CreateClient:
  *   post:
  *     summary: Create a new client
  *     tags: [Clients]
@@ -44,7 +44,32 @@ clientRouter.get("api/Client/GetAllClients", control.getAll.bind(control));
  *       500:
  *         description: Internal server error
  */
-clientRouter.post("api/Client/CreateClient", control.create.bind(control));
+clientRouter.post("/api/Client/CreateClient", verifyToken, control.create.bind(control));
+
+/**
+ * @swagger
+ * /api/Client/GetClientById/{id}:
+ *   get:
+ *     summary: Get a client by ID
+ *     tags: [Clients]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the client to retrieve
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved client
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Client not found
+ *       500:
+ *         description: Internal server error
+ */
+clientRouter.get("/api/Client/GetClientById/:id", verifyToken, control.getById.bind(control));
 
 /**
  * @swagger
