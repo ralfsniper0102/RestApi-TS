@@ -12,9 +12,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Your API',
+      title: 'Project Registration of Customers and Users',
       version: '1.0.0',
-      description: 'API documentation for your TS-EXPRESS-SEQUELIZE app',
+      description: 'API documentation for your RestApi-TS',
     },
 
     components: {
@@ -30,6 +30,14 @@ const options = {
     security: [{
       JWT: []
     }],
+    servers: [
+      {
+        url: 'https://solutionsapi.online/rest-api-ts', 
+      },
+      {
+        url: 'http://localhost:3000'
+      }
+    ],
   },
   apis: ['./src/routes/*.ts'],
 };
