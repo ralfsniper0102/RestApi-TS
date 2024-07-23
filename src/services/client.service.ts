@@ -16,6 +16,7 @@ class ClientService {
     catch(error){
         return resp(500, "Error searching clients");
     }
+    if(clients.length === 0) return resp(404, "No clients found");
     
     return resp(200, clients);
   }

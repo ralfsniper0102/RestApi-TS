@@ -10,8 +10,20 @@ class UserService {
   private model: ModelStatic<User> = User;
 
   async getAll() {
-    const users = await this.model.findAll();
-    return resp(200, users);
+    let users;
+
+    try {
+      users = await this.model.findAll();
+    } catch (error) {
+      return resp(500, "Error searching users");
+    }
+    if (users.length === 0) return resp(404, "No users found");
+
+    const usersMapper = users.map((user) => {
+      const { id, email } = user;
+      return { id, email };
+    });
+    return resp(200, usersMapper);
   }
 
   async login(body: { email: string; password: string }) {
