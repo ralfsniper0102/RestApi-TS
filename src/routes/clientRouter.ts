@@ -8,19 +8,19 @@ const clientRouter = Router();
 
 /**
  * @swagger
- *   /api/Client/GetAllClients:
- *      get:
- *          summary: Retrieve all clients
- *          tags: [Clients]
- *          responses:
- *              200:
- *                  description: A list of clients
- *                  content:
- *                      application/json:
- *                          schema:
- *                              type: array
- *                              items:
- *                                  $ref: '#/components/schemas/GetClients'
+ * /api/Client/GetAllClients:
+ *   get:
+ *     summary: Retrieve all clients
+ *     tags: [Clients]
+ *     responses:
+ *       200:
+ *         description: A list of clients
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/GetClients'
  */
 clientRouter.get("/api/Client/GetAllClients", verifyToken, control.getAll.bind(control));
 
@@ -80,7 +80,7 @@ clientRouter.get("/api/Client/GetClientById/:id", verifyToken, control.getById.b
  *       properties:
  *         id:
  *           type: integer
- *         name:        
+ *         name:
  *           type: string
  *         email:
  *           type: string
@@ -139,7 +139,7 @@ clientRouter.get("/api/Client/GetClientById/:id", verifyToken, control.getById.b
  *         - state
  *         - zip
  *         - country
- *         - createdById  
+ *         - createdById
  */
 
 export default clientRouter;

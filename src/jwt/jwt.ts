@@ -24,6 +24,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
       return res.status(401).json();
     }
     res.locals.user = decoded;
+    next();
   } catch (err) {
     next(err);
   }
