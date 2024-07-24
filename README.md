@@ -1,7 +1,7 @@
 
 # Projeto REST API Typescript - Cadastro de Usuários e Clientes
 
-Projeto backend utilizado para gerenciamento de acesso a usuários e Cadastro de clientes 
+Projeto backend utilizado para gerenciamento de cadastro e acesso a usuários e cadastro de clientes 
 
 ## Link Swagger
 - https://solutionsapi.online/rest-api-ts/swagger/index.html/
